@@ -1,0 +1,79 @@
+---
+test_name: FastAPI MongoDB User Namespace
+includes:
+  - !include common.yaml
+
+stages:
+  - name: Get All Users
+    request:
+      url: http://localhost:8080/user
+      method: GET
+    response:
+      status_code: 406
+      json:
+        detail: "database not ready"
+
+  - name: Insert a User
+    request:
+      url: http://localhost:8080/user
+      method: PUT
+      json:
+        user_id: "{user_id}"
+        username: "{username}"
+        name: "{name}"
+        email: "{email}"
+        active: true
+    response:
+      status_code: 201
+      json:
+        user_id: "{user_id}"
+        username: "{username}"
+        name: "{name}"
+        email: "{email}"
+        active: true
+
+  - name: Update a User
+    request:
+      url: http://localhost:8080/user
+      method: PATCH
+      json:
+        user_id: "{user_id}"
+        username: "{username}"
+        name: "{name}"
+        email: "{new_email}"
+        active: true
+    response:
+      status_code: 202
+      json:
+        user_id: "{user_id}"
+        username: "{username}"
+        name: "{name}"
+        email: "{new_email}"
+        active: true
+
+  - name: Get a User
+    request:
+      url: http://localhost:8080/user/{user_id}
+      method: GET
+    response:
+      status_code: 200
+      json:
+        user_id: "{user_id}"
+        username: "{username}"
+        name: "{name}"
+        email: "{new_email}"
+        active: true
+
+  - name: Delete a User
+    request:
+      url: http://localhost:8080/user
+      method: DELETE
+      json:
+        user_id: "{user_id}"
+        username: "{username}"
+        name: "{name}"
+        email: "{new_email}"
+        active: true
+    response:
+      status_code: 202
+      json: []

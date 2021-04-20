@@ -1,0 +1,12 @@
+---
+name: "FastAPI MongoDB Async RestAPI"
+description: Common Settings
+
+variables:
+  host: http://localhost:8080
+  user_id: "a00001"
+  username: "anth0"
+  name: "Anthony Cepeda"
+  email: "anth@mail.com"
+  active: true
+  new_email: "anth@protonmail.com"
