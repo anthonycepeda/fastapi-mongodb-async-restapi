@@ -1,0 +1,32 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+fastapi = "*"
+tavern = "*"
+uvicorn = "*"
+mongoengine = "*"
+motor = "*"
+sentry-sdk = "*"
+starlette-exporter = "*"
+email-validator = "*"
+
+[dev-packages]
+black = "*"
+pylint = "*"
+fastapi = "*"
+tavern = "*"
+uvicorn = "*"
+mongoengine = "*"
+motor = "*"
+sentry-sdk = "*"
+starlette-exporter = "*"
+email-validator = "*"
+
+[requires]
+python_version = "3.9"
+
+[pipenv]
+allow_prereleases = true
