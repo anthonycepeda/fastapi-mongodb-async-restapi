@@ -35,15 +35,6 @@ app.add_middleware(PrometheusMiddleware)
 app.add_route("/metrics", handle_metrics)
 
 
-# sentry logs: https://docs.sentry.io/platforms/python/
-if settings.SENTRY_DSN:
-    sentry_sdk.init(
-        settings.SENTRY_DSN,
-        traces_sample_rate="1.0",
-        environment=settings.ENVIRONMENT,
-        debug=settings.DEBUG,
-    )
-
 logger.info(
     "FastAPI Mongo Async API has been launched for %s environment!",
     settings.ENVIRONMENT,

@@ -4,7 +4,7 @@ from pydantic import BaseModel, EmailStr
 
 
 class Health(BaseModel):
-    """ Health endpoint response """
+    """Health endpoint response"""
 
     status: str
     environment: str
@@ -12,7 +12,7 @@ class Health(BaseModel):
     total_users: int
 
     class Config:
-        """ Swagger example """
+        """Swagger example"""
 
         schema_extra = {
             "example": {
@@ -25,7 +25,7 @@ class Health(BaseModel):
 
 
 class User(BaseModel):
-    """ User Model """
+    """User Model"""
 
     user_id: str
     username: str
@@ -34,7 +34,7 @@ class User(BaseModel):
     active: bool
 
     class Config:
-        """ Swagger example """
+        """Swagger example"""
 
         schema_extra = {
             "example": {
@@ -48,7 +48,7 @@ class User(BaseModel):
 
 
 class Error(BaseModel):
-    """ Erros reponses Model"""
+    """Erros reponses Model"""
 
     detail: str
     status_code: int
