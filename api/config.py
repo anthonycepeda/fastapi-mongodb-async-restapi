@@ -22,13 +22,11 @@ class Settings(BaseSettings):
     """app config settings"""
 
     PROJECT_NAME: str
-    VERSION: str = "v1.0.0"
-    DESCRIPTION: str = (
-        "A Production Ready FastAPI API using Asyncronous MongoDB Connection"
-    )
+    VERSION: str
+    DESCRIPTION: str
     SECRET_KET: str = secrets.token_urlsafe(32)
     DEBUG: bool = bool(os.getenv("DEBUG", "False"))
-    ENVIRONMENT: str = os.getenv("ENVIRONMENT", "DEV").capitalize()
+    ENVIRONMENT: str
     DB_URI = database_uri()
 
     class Config:
