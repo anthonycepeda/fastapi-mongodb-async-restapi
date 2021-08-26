@@ -1,21 +1,25 @@
-# Dockerfile Doc: https://docs.docker.com/engine/reference/builder/
-# using python 3.9 docker image
 FROM python:3.9
 
-# letting docker know the port
 EXPOSE 8080
 
-# setting working directory
 WORKDIR /app
 
-# installing pip's requirements file
-COPY requirements/ /app/requirements
-RUN pip install --upgrade pip
-RUN pip install -r ./requirements/dev.txt --no-cache-dir
 
-# copying the api and it's access point
+COPY tavern_tests /app/tavern_tests
+COPY Pipfile /app
+COPY Pipfile.lock /app
+COPY .env /app/.env
+RUN pip install --upgrade pip
+RUN pip install pipenv
+RUN pipenv install
+
+RUN cat /etc/ssl/certs/ca-certificates.crt >> `python -m certifi`
+
 COPY api/ /app/api
 COPY entry_point.py /app/entry_point.py
 
-# runing the app
-CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8080", "--access-log", "--reload"]
+RUN apt-get update && \
+    apt-get install -y mongodb && \
+    mongod --dbpath /data/db/
+
+CMD ["pipenv", "run", "python", "entry_point.py"]

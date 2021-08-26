@@ -28,9 +28,9 @@ run_python_venv:
 run_docker_dev:
 	# build and run from docker/Dockerfile.dev
 	docker build --pull --rm -f "./docker/Dockerfile.dev" -t api:latest "." && \
-	docker run --it p 8080:8080/tcp api:latest
+	docker run -it -p 8080:8080/tcp api:latest
 
 run_docker:
 	# build and run from docker/Dockerfile
 	docker build --pull --rm -f "./docker/Dockerfile" -t api:latest "." && \
-	docker run --it p 8080:8080/tcp api:latest
+	docker run -it -p 8080:8080/tcp api:latest

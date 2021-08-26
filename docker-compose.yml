@@ -1,0 +1,59 @@
+version: "3"
+services:
+  api:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+      args:
+        PIPENV_ARGS: "--dev"
+    container_name: fastapi_mongo_async_api
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - ENVIRONMENT=${ENVIRONMENT}
+      - MONGO_USERNAME=${MONGO_USERNAME}
+      - MONGO_PASSWORD=${MONGO_PASSWORD}
+      - MONGO_HOST={MONGO_HOST}
+      - MONGO_PORT=${MONGO_PORT}
+      - MONGO_DB=${MONGO_INITDB_DATABASE}
+    command:
+      - pipenv
+      - run
+      - python
+      - entry_point.py
+    ports:
+      - "8080:8080"
+    networks:
+      - api_network
+    depends_on:
+      - mongo
+    volumes:
+      - ./:/app
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo_db
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
+      - MONGO_USERNAME=${MONGO_USERNAME}
+      - MONGO_PASSWORD=${MONGO_PASSWORD}
+      - MONGO_PORT=${MONGO_PORT}
+    volumes:
+      - db-data:/data/db
+      - ./docker/scripts/:/docker-entrypoint-initdb.d
+    networks:
+      - api_network
+    command: 
+      - sudo
+
+volumes:
+  db-data:
+
+networks:
+  api_network:
+    driver: bridge
