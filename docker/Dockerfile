@@ -1,6 +1,6 @@
 FROM python:3.9
 
-EXPOSE 8080
+
 
 WORKDIR /app
 
@@ -16,5 +16,8 @@ RUN cat /etc/ssl/certs/ca-certificates.crt >> `python -m certifi`
 
 COPY api/ /app/api
 COPY entry_point.py /app/entry_point.py
+
+ENV HOST=0.0.0.0 PORT=8080
+EXPOSE ${PORT}
 
 CMD ["pipenv", "run", "python", "entry_point.py"]

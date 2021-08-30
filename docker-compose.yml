@@ -6,16 +6,16 @@ services:
       dockerfile: ./docker/Dockerfile
       args:
         PIPENV_ARGS: "--dev"
-    container_name: fastapi_mongo_async_api
+    container_name: api
     restart: unless-stopped
     env_file: .env
     environment:
       - ENVIRONMENT=${ENVIRONMENT}
-      - MONGO_USERNAME=${MONGO_USERNAME}
-      - MONGO_PASSWORD=${MONGO_PASSWORD}
-      - MONGO_HOST={MONGO_HOST}
-      - MONGO_PORT=${MONGO_PORT}
-      - MONGO_DB=${MONGO_INITDB_DATABASE}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST={DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_NAME=${DB_NAME}
     command:
       - pipenv
       - run
@@ -32,24 +32,19 @@ services:
 
   mongo:
     image: mongo:latest
-    container_name: mongo_db
+    container_name: db
     restart: unless-stopped
+    env_file: .env
     ports:
       - "27017:27017"
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
-      - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
-      - MONGO_USERNAME=${MONGO_USERNAME}
-      - MONGO_PASSWORD=${MONGO_PASSWORD}
-      - MONGO_PORT=${MONGO_PORT}
+      - MONGO_INITDB_ROOT_USERNAME=$MONGO_INITDB_ROOT_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD=$MONGO_INITDB_ROOT_PASSWORD
+      - MONGO_INITDB_DATABASE=$MONGO_INITDB_DATABASE
     volumes:
-      - db-data:/data/db
-      - ./docker/scripts/:/docker-entrypoint-initdb.d
+      - ./docker-entrypoint-initdb.d/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     networks:
       - api_network
-    command: 
-      - sudo
 
 volumes:
   db-data:

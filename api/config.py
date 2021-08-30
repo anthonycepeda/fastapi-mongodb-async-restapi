@@ -7,13 +7,15 @@ from pydantic import BaseSettings
 
 def database_uri():
     """db connection"""
-    MONGO_HOST = os.getenv("MONGO_HOST", "localhost")
-    MONGO_PORT = os.getenv("MONGO_PORT", "27017")
-    MONGO_INITDB_ROOT_USERNAME = os.getenv("MONGO_INITDB_ROOT_USERNAME", "admin")
-    MONGO_USERNAME = os.getenv("MONGO_USERNAME")
-    MONGO_PASSWORD = os.getenv("MONGO_PASSWORD")
+    DB_HOST = os.getenv("DB_HOST", "mongo")
+    DB_PORT = os.getenv("DB_PORT", "27017")
+    DB_NAME = os.getenv("DB_NAME", "api-db")
+    DB_USERNAME = os.getenv("DB_USERNAME")
+    DB_PASSWORD = os.getenv("DB_PASSWORD")
 
-    MONGODB_CLIENT_SETUP = f"mongodb://{MONGO_USERNAME}:{MONGO_PASSWORD}@{MONGO_HOST}:{MONGO_PORT}/{MONGO_INITDB_ROOT_USERNAME}"
+    MONGODB_CLIENT_SETUP = (
+        f"mongodb://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+    )
 
     return MONGODB_CLIENT_SETUP
 
