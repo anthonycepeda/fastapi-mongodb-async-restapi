@@ -1,4 +1,4 @@
-![alt text](./FastAPI-MongoDB.png)
+![alt text](./FastAPI-MongoDB.jpg)
 
 # FastAPI MongoDB Async RestAPI
 
