@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, status
 from fastapi.responses import JSONResponse
 
 from api.db import DatabaseManager, get_database
-from api.models import Health
+from api.public.health.models import Health
 
 router = APIRouter()
 

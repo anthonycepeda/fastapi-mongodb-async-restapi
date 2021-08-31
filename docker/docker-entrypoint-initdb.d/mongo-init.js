@@ -1,8 +1,8 @@
 
 print('creating collection and user/pwd')
 
-// db = db.getSiblingDB('api-db');
-db.createCollection('api-db');
+db = db.getSiblingDB('api-db');
+db.createCollection('user');
 db.createUser(
   {
     user: 'svc_api',

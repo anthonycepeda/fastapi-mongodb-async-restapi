@@ -1,13 +1,11 @@
-import sentry_sdk
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from starlette_exporter import PrometheusMiddleware, handle_metrics
 
 from api.config import get_config
+from api.db import db
 from api.public import api as public_api
 from api.utils.logger import logger_config
-from api.db import db
-
 
 logger = logger_config(__name__)
 
@@ -41,7 +39,6 @@ logger.info(
 )
 
 
-# here comes fastapi magic
 @app.on_event("startup")
 async def startup():
     logger.info("db connection startup")

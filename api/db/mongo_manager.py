@@ -3,12 +3,11 @@ import os
 from typing import List
 
 from bson.json_util import dumps
-from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
 from fastapi import HTTPException, status
+from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
 
 from api.db import DatabaseManager
-from api.models import User
-
+from api.public.user.models import User
 from api.utils.logger import logger_config
 
 logger = logger_config(__name__)

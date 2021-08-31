@@ -1,12 +1,11 @@
-import os
-from typing import List, Optional
+from typing import List
 
-from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.responses import JSONResponse
 
 from api.db import DatabaseManager, get_database
-from api.models import User, Error
-
+from api.models.generic import Error
+from api.public.user.models import User
 from api.utils.logger import logger_config
 
 logger = logger_config(__name__)
@@ -25,7 +24,7 @@ router = APIRouter()
 async def get_all_users_in_database(
     db: DatabaseManager = Depends(get_database),
 ) -> List[User]:
-    """ Get all users from users mongodb collection """
+    """Get all users from users mongodb collection"""
     users = await db.user_get_all()
     if users:
         return JSONResponse(status_code=status.HTTP_200_OK, content=users)
@@ -44,7 +43,7 @@ async def get_all_users_in_database(
 async def get_user_by_user_id(
     user_id: str, db: DatabaseManager = Depends(get_database)
 ) -> User:
-    """ Get one user by providing a user_id: str """
+    """Get one user by providing a user_id: str"""
     user = await db.user_get_one(user_id=user_id)
 
     if user:
