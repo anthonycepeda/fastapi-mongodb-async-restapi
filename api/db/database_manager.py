@@ -1,8 +1,7 @@
 from abc import abstractmethod
 from typing import List
 
-from api.public.user.models import User
-
+from api.models.generic import User
 
 class DatabaseManager:
     """

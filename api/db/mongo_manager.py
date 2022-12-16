@@ -7,7 +7,7 @@ from fastapi import HTTPException, status
 from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
 
 from api.db import DatabaseManager
-from api.public.user.models import User
+from api.models.generic import User
 from api.utils.logger import logger_config
 
 logger = logger_config(__name__)
